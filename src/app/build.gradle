@@ -25,5 +25,5 @@ dependencies {
     compile 'com.facebook.fresco:fresco:0.5.3'
     compile 'com.android.support:recyclerview-v7:22.2.0'
     compile 'com.mcxiaoke.volley:library:1.0.16'
-    compile 'com.orhanobut:Logger:1.1'
+    compile 'com.orhanobut:logger:1.10'
 }

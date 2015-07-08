@@ -56,7 +56,12 @@ public class MainActivity extends AppCompatActivity {
         allTagsApi.getAllTags(new AllTagsApi.AllTagsDataLoadedListener() {
             @Override
             public void onAllTagsDataLoaded(List<String> allTags, ApplicationError applicationError) {
-                Logger.d("Got all tags (" + allTags.size() + ")");
+                if (applicationError == null) {
+                    Logger.d("Got all tags (%d)", allTags.size());
+                } else {
+                    Logger.e(applicationError.getMessage());
+                }
+
             }
         });
         SimpleDraweeView mSimpleDraweeView = (SimpleDraweeView) findViewById(R.id.main_image);
@@ -98,10 +103,9 @@ public class MainActivity extends AppCompatActivity {
         popularTagsApi.getPopularTags(new PopularTagsApi.PopularTagsDataLoadedListener() {
             @Override
             public void onPopularTagsDataLoaded(List<PopularTag> popularTags, ApplicationError applicationError) {
-                if (applicationError == null){
+                if (applicationError == null) {
                     popularTagsAdapter.setData(popularTags);
-                }
-                else {
+                } else {
                     Logger.e(applicationError.getMessage());
                     Logger.e(applicationError.getInternalMessage());
                     // TODO: Show error on ui
