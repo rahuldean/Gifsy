@@ -13,6 +13,7 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.godhc.gifsy.adapters.PopularTagsAdapter;
+import com.godhc.gifsy.api.AllTagsApi;
 import com.godhc.gifsy.api.PopularTagsApi;
 import com.godhc.gifsy.models.ApplicationError;
 import com.godhc.gifsy.models.PopularTag;
@@ -51,6 +52,13 @@ public class MainActivity extends AppCompatActivity {
 
         loadData();
 
+        AllTagsApi allTagsApi = new AllTagsApi(this);
+        allTagsApi.getAllTags(new AllTagsApi.AllTagsDataLoadedListener() {
+            @Override
+            public void onAllTagsDataLoaded(List<String> allTags, ApplicationError applicationError) {
+                Logger.d("Got all tags (" + allTags.size() + ")");
+            }
+        });
         SimpleDraweeView mSimpleDraweeView = (SimpleDraweeView) findViewById(R.id.main_image);
 
         Uri uri;
