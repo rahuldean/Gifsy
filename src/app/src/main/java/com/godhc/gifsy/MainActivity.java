@@ -2,6 +2,8 @@ package com.godhc.gifsy;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -12,6 +14,7 @@ import android.view.MenuItem;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.godhc.gifsy.adapters.MainSectionPagerAdapter;
 import com.godhc.gifsy.adapters.PopularTagsAdapter;
 import com.godhc.gifsy.api.AllTagsApi;
 import com.godhc.gifsy.api.PopularTagsApi;
@@ -26,8 +29,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    RecyclerView recyclerView;
-    PopularTagsAdapter popularTagsAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,15 +46,13 @@ public class MainActivity extends AppCompatActivity {
             getSupportActionBar().setHomeButtonEnabled(true);
         }
 
-        recyclerView = (RecyclerView) findViewById(R.id.activity_main_rv_popularTags);
-        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(3, 1));
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayoutMain);
+        ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
 
-        popularTagsAdapter = new PopularTagsAdapter(this, null);
-        recyclerView.setAdapter(popularTagsAdapter);
+        viewPager.setAdapter(new MainSectionPagerAdapter(getSupportFragmentManager()));
+        tabLayout.setupWithViewPager(viewPager);
 
-        recyclerView.setHasFixedSize(false);
 
-        loadData();
 
         AllTagsApi allTagsApi = new AllTagsApi(this);
         allTagsApi.getAllTags(new AllTagsApi.AllTagsDataLoadedListener() {
@@ -114,21 +114,5 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    private void loadData() {
-        PopularTagsApi popularTagsApi = new PopularTagsApi(this);
-        popularTagsApi.getPopularTags(new PopularTagsApi.PopularTagsDataLoadedListener() {
-            @Override
-            public void onPopularTagsDataLoaded(List<PopularTag> popularTags, ApplicationError applicationError) {
-                if (applicationError == null) {
-                    popularTagsAdapter.setData(popularTags);
-                } else {
-                    Logger.e(applicationError.getMessage());
-                    Logger.e(applicationError.getInternalMessage());
-                    // TODO: Show error on ui
-                }
-            }
-        });
     }
 }
