@@ -1,26 +1,18 @@
 package com.godhc.gifsy;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
-import com.facebook.drawee.interfaces.DraweeController;
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.godhc.gifsy.adapters.MainSectionPagerAdapter;
-import com.godhc.gifsy.adapters.PopularTagsAdapter;
 import com.godhc.gifsy.api.AllTagsApi;
-import com.godhc.gifsy.api.PopularTagsApi;
 import com.godhc.gifsy.api.SearchByTagApi;
 import com.godhc.gifsy.models.ApplicationError;
-import com.godhc.gifsy.models.PopularTag;
 import com.godhc.gifsy.models.TagResponse;
 import com.orhanobut.logger.Logger;
 
@@ -28,7 +20,6 @@ import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
-
 
 
     @Override
@@ -39,19 +30,18 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarMain);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.activityMainToolbar);
         setSupportActionBar(toolbar);
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setHomeButtonEnabled(true);
         }
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayoutMain);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.activityMainTabLayout);
         ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
 
         viewPager.setAdapter(new MainSectionPagerAdapter(getSupportFragmentManager()));
         tabLayout.setupWithViewPager(viewPager);
-
 
 
         AllTagsApi allTagsApi = new AllTagsApi(this);
