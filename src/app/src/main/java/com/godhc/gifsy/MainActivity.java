@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         recyclerView = (RecyclerView) findViewById(R.id.activity_main_rv_popularTags);
-        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, 1));
+        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(3, 1));
 
         popularTagsAdapter = new PopularTagsAdapter(this, null);
         recyclerView.setAdapter(popularTagsAdapter);
@@ -71,19 +71,27 @@ public class MainActivity extends AppCompatActivity {
         searchByTagApi.searchGifByTag("smile", 2, new SearchByTagApi.SearchGifByTagResponseListener() {
             @Override
             public void onSearchGifByTagResponse(TagResponse tagResponse, ApplicationError applicationError) {
-                Logger.d("Total gifs = %d; page count = %d; current page = %d ", tagResponse.getGifCount(), tagResponse.getPageCount(), tagResponse.getPageCurrent());
+                if (applicationError == null) {
+                    Logger.d("Total gifs = %d; page count = %d; current page = %d ", tagResponse.getGifCount(), tagResponse.getPageCount(), tagResponse.getPageCurrent());
+                } else {
+                    Logger.e("id = %s; Error Message: %s, Internal Error Message: ", applicationError.getErrorId(),
+                            applicationError.getMessage(),
+                            applicationError.getInternalMessage());
+                }
+
             }
         });
-        SimpleDraweeView mSimpleDraweeView = (SimpleDraweeView) findViewById(R.id.main_image);
 
-        Uri uri;
-        uri = Uri.parse("http://i.imgur.com/Io3s81m.gif");
-        DraweeController controller = Fresco.newDraweeControllerBuilder()
-                .setUri(uri)
-                .setAutoPlayAnimations(true)
+        //SimpleDraweeView mSimpleDraweeView = (SimpleDraweeView) findViewById(R.id.main_image);
 
-                .build();
-        mSimpleDraweeView.setController(controller);
+//        Uri uri;
+//        uri = Uri.parse("http://i.imgur.com/Io3s81m.gif");
+//        DraweeController controller = Fresco.newDraweeControllerBuilder()
+//                .setUri(uri)
+//                .setAutoPlayAnimations(true)
+//                .build();
+//
+//        mSimpleDraweeView.setController(controller);
     }
 
     @Override

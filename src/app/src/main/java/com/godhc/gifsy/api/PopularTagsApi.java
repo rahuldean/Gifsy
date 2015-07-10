@@ -72,7 +72,8 @@ public class PopularTagsApi {
                 JSONObject popularTagJsonObject = popularTagsResponse.getJSONObject(i);
 
                 popularTagList.add(new PopularTag(popularTagJsonObject.getString("tag"),
-                        popularTagJsonObject.getString("img_url")));
+                        popularTagJsonObject.getString("img_url"),
+                        popularTagJsonObject.getInt("count")));
 
             } catch (JSONException jsonException) {
                 // TODO: Handle exception
