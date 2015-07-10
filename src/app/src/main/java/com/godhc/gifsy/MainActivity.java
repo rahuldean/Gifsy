@@ -15,8 +15,10 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.godhc.gifsy.adapters.PopularTagsAdapter;
 import com.godhc.gifsy.api.AllTagsApi;
 import com.godhc.gifsy.api.PopularTagsApi;
+import com.godhc.gifsy.api.SearchByTagApi;
 import com.godhc.gifsy.models.ApplicationError;
 import com.godhc.gifsy.models.PopularTag;
+import com.godhc.gifsy.models.TagResponse;
 import com.orhanobut.logger.Logger;
 
 import java.util.List;
@@ -62,6 +64,14 @@ public class MainActivity extends AppCompatActivity {
                     Logger.e(applicationError.getMessage());
                 }
 
+            }
+        });
+
+        SearchByTagApi searchByTagApi = new SearchByTagApi(this);
+        searchByTagApi.searchGifByTag("smile", 2, new SearchByTagApi.SearchGifByTagResponseListener() {
+            @Override
+            public void onSearchGifByTagResponse(TagResponse tagResponse, ApplicationError applicationError) {
+                Logger.d("Total gifs = %d; page count = %d; current page = %d ", tagResponse.getGifCount(), tagResponse.getPageCount(), tagResponse.getPageCurrent());
             }
         });
         SimpleDraweeView mSimpleDraweeView = (SimpleDraweeView) findViewById(R.id.main_image);
