@@ -13,6 +13,7 @@ import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.DraweeView;
 import com.godhc.gifsy.R;
 import com.godhc.gifsy.models.PopularTag;
+import com.vstechlab.easyfonts.EasyFonts;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +45,7 @@ public class PopularTagsAdapter extends RecyclerView.Adapter<PopularTagsAdapter.
 
         if (currentPopularTag != null) {
             holder.nameTV.setText(currentPopularTag.getTag());
+            holder.nameTV.setTypeface(EasyFonts.caviarDreamsBold(context));
 
             String imageUrl = "http://lorempixel.com/120/120/sports/" + position % 10;
             if (!currentPopularTag.getImgUrl().isEmpty())
