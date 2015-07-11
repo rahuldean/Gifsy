@@ -38,7 +38,8 @@ public class AllTagsApi {
                             List<String> allTags = new ArrayList<>();
 
                             for (int i = 0; i < response.length(); i++) {
-                                allTags.add(response.getString(i));
+                                if (!response.getString(i).isEmpty())
+                                    allTags.add(response.getString(i));
                             }
 
                             allTagsDataLoadedListener.onAllTagsDataLoaded(allTags, null);
