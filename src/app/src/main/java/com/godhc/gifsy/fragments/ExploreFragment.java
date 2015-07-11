@@ -19,6 +19,7 @@ import com.godhc.gifsy.utlis.Constants;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -40,7 +41,12 @@ public class ExploreFragment extends Fragment implements AllTagsAdapter.TagClick
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_explore, container, false);
+        setRetainInstance(true);
+        return inflater.inflate(R.layout.fragment_explore, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
 
         recyclerView = (RecyclerView) view.findViewById(R.id.fragment_explore_rv_allTags);
         allTagsAdapter = new AllTagsAdapter(getActivity(), null);
@@ -49,6 +55,24 @@ public class ExploreFragment extends Fragment implements AllTagsAdapter.TagClick
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(false);
 
+        loadData();
+
+    }
+
+    @Override
+    public void onTagClick(View view) {
+        int position = recyclerView.getChildLayoutPosition(view);
+
+        String selectedTag = tagsList.get(position);
+        Intent intent = new Intent();
+        intent.setClass(getActivity(), TagGifsActivity.class);
+        intent.putExtra(Constants.GlobalConstants.ACTIVITY_TAG_GIFS_TAG_NAME, selectedTag);
+
+        startActivity(intent);
+
+    }
+
+    private void loadData() {
         AllTagsApi allTagsApi = new AllTagsApi(getActivity());
         allTagsApi.getAllTags(new AllTagsApi.AllTagsDataLoadedListener() {
             @Override
@@ -63,21 +87,5 @@ public class ExploreFragment extends Fragment implements AllTagsAdapter.TagClick
 
             }
         });
-
-        // Inflate the layout for this fragment
-        return view;
-    }
-
-    @Override
-    public void onTagClick(View view) {
-        int position = recyclerView.getChildLayoutPosition(view);
-
-        String selectedTag = tagsList.get(position);
-        Intent intent = new Intent();
-        intent.setClass(getActivity(), TagGifsActivity.class);
-        intent.putExtra(Constants.GlobalConstants.ACTIVITY_TAG_GIFS_TAG_NAME, selectedTag);
-
-        startActivity(intent);
-
     }
 }
