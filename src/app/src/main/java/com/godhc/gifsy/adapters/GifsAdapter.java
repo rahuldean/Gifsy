@@ -71,7 +71,7 @@ public class GifsAdapter extends RecyclerView.Adapter<GifsAdapter.ViewHolder> {
 
             TimeAgo timeAgo = new TimeAgo(this.context);
 
-            Logger.d(timeAgo.timeAgo(updatedAtDate));
+//            Logger.d(timeAgo.timeAgo(updatedAtDate));
 
             holder.lastUpdatedAt.setText(timeAgo.timeAgo(updatedAtDate));
             holder.lastUpdatedAt.setVisibility(View.GONE);
@@ -108,16 +108,10 @@ public class GifsAdapter extends RecyclerView.Adapter<GifsAdapter.ViewHolder> {
     public void setData(List<GifInfo> data) {
         this.gifInfoList = data;
         notifyDataSetChanged();
-        Logger.d("1st time count %d", this.gifInfoList.size());
     }
 
     public void appendData(List<GifInfo> appendData) {
-        Logger.d("Before appending data, count %d", this.gifInfoList.size());
-        Logger.d("To append count %d", appendData.size());
-
         this.gifInfoList.addAll(appendData);
-
-        Logger.d("After appending count %d", this.gifInfoList.size());
         notifyDataSetChanged();
     }
 

@@ -64,8 +64,6 @@ public class PopularTagsApi {
             return popularTagList;
         }
 
-        Logger.json(popularTagsResponse.toString());
-
         // Populate the popularTagList by parsing the response
         for (int i = 0; i < popularTagsResponse.length(); i++) {
             try {
