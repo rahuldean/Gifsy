@@ -43,7 +43,6 @@ public class SearchByTagApi {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Logger.json(response.toString());
                         searchGifByTagResponseListener.onSearchGifByTagResponse(parseResponse(response), null);
                     }
                 },

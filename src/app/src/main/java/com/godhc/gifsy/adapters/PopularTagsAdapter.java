@@ -9,7 +9,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.generic.RoundingParams;
 import com.facebook.drawee.interfaces.DraweeController;
+import com.facebook.drawee.interfaces.DraweeHierarchy;
 import com.facebook.drawee.view.DraweeView;
 import com.godhc.gifsy.R;
 import com.godhc.gifsy.models.PopularTag;
@@ -22,6 +24,7 @@ public class PopularTagsAdapter extends RecyclerView.Adapter<PopularTagsAdapter.
 
     Context context;
     List<PopularTag> popularTags;
+    PopularTagClickListener popularTagClickListener;
 
     public PopularTagsAdapter(Context context, List<PopularTag> popularTags) {
         super();
@@ -50,6 +53,8 @@ public class PopularTagsAdapter extends RecyclerView.Adapter<PopularTagsAdapter.
             String imageUrl = "http://lorempixel.com/120/120/sports/" + position % 10;
             if (!currentPopularTag.getImgUrl().isEmpty())
                 imageUrl = currentPopularTag.getImgUrl();
+
+            RoundingParams roundingParams = RoundingParams.asCircle();
 
             Uri uri = Uri.parse(imageUrl);
             DraweeController draweeController = Fresco.newDraweeControllerBuilder()
@@ -81,6 +86,23 @@ public class PopularTagsAdapter extends RecyclerView.Adapter<PopularTagsAdapter.
 
             nameTV = (TextView) itemView.findViewById(R.id.activity_main_rv_row_popularTags_name);
             imageDraweeView = (DraweeView) itemView.findViewById(R.id.activity_main_rv_row_popularTags_image);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (popularTagClickListener != null){
+                        popularTagClickListener.onPopularTagClick(view);
+                    }
+                }
+            });
         }
+    }
+
+    public interface PopularTagClickListener {
+        void onPopularTagClick(View view);
+    }
+
+    public void setPopularTagClickListener(PopularTagClickListener popularTagClickListener){
+        this.popularTagClickListener = popularTagClickListener;
     }
 }

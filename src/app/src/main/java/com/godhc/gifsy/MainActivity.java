@@ -26,8 +26,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Fresco.initialize(this);
-
         setContentView(R.layout.activity_main);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.activityMainToolbar);
@@ -57,31 +55,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        SearchByTagApi searchByTagApi = new SearchByTagApi(this);
-        searchByTagApi.searchGifByTag("smile", 2, new SearchByTagApi.SearchGifByTagResponseListener() {
-            @Override
-            public void onSearchGifByTagResponse(TagResponse tagResponse, ApplicationError applicationError) {
-                if (applicationError == null) {
-                    Logger.d("Total gifs = %d; page count = %d; current page = %d ", tagResponse.getGifCount(), tagResponse.getPageCount(), tagResponse.getPageCurrent());
-                } else {
-                    Logger.e("id = %s; Error Message: %s, Internal Error Message: ", applicationError.getErrorId(),
-                            applicationError.getMessage(),
-                            applicationError.getInternalMessage());
-                }
-
-            }
-        });
-
-        //SimpleDraweeView mSimpleDraweeView = (SimpleDraweeView) findViewById(R.id.main_image);
-
-//        Uri uri;
-//        uri = Uri.parse("http://i.imgur.com/Io3s81m.gif");
-//        DraweeController controller = Fresco.newDraweeControllerBuilder()
-//                .setUri(uri)
-//                .setAutoPlayAnimations(true)
-//                .build();
-//
-//        mSimpleDraweeView.setController(controller);
     }
 
     @Override

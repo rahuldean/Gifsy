@@ -1,0 +1,17 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.godhc.gifsy.activities.TagGifsActivity">
+
+    <include
+        android:id="@+id/activity_tag_gifs_toolbar_main"
+        layout="@layout/toolbar_main" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/activity_tag_gifs_rv_gifs"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/activity_tag_gifs_toolbar_main" />
+
+</RelativeLayout>

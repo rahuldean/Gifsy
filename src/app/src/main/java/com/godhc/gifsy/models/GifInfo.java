@@ -11,6 +11,7 @@ public class GifInfo {
     String username;
     String date;
     List<String> tags;
+    String tagsAsString;
 
     public GifInfo(String id, String url, String username, String date, String tagsString) {
         this.id = id;
@@ -18,6 +19,7 @@ public class GifInfo {
         this.username = username;
         this.date = date;
         this.tags = this.getTagsFromString(tagsString);
+        this.tagsAsString = tagsString;
     }
 
     public String getId() {
@@ -38,6 +40,10 @@ public class GifInfo {
 
     public List<String> getTags() {
         return tags;
+    }
+
+    public String getTagsAsString() {
+        return tagsAsString;
     }
 
     protected List<String> getTagsFromString(String tagsString) {
